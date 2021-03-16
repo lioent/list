@@ -1,0 +1,28 @@
+{
+    "env": {
+        "myDefaultIncludePath": [
+            "${workspaceFolder}/**", 
+            "${workspaceFolder}/src/**",
+            "${workspaceFolder}/include/**"
+        ],
+        "myCompilerPath": "E:\\mingw32\\bin\\gcc.exe"
+    },
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${myDefaultIncludePath}"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "compilerPath": "${myCompilerPath}",
+            "cStandard": "gnu11",
+            "cppStandard": "gnu++14",
+            "intelliSenseMode": "windows-gcc-x86"
+        }
+    ],
+    "version": 4
+}
