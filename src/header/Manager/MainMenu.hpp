@@ -1,4 +1,6 @@
 #include "Menu.hpp"
+#include "LinkedListMenu.hpp"
+#include "SequentialListMenu.hpp"
 
 namespace Header_Manager
 {

@@ -7,7 +7,7 @@ using std::cin;
 using std::cout;
 using std::endl;
 
-using namesapce Header_Util;
+using namespace Header_Util;
 
 Header_Manager::MainMenu::MainMenu()
 {
@@ -44,7 +44,7 @@ void Header_Manager::MainMenu::openMenu()
             break;
 
             default:
-            cout << "Invalid option"
+            cout << "Invalid option" << endl;
             break;
         }
     }
