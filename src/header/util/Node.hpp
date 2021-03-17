@@ -1,4 +1,8 @@
-namespace header_util
+#include <memory>
+
+using std::unique_ptr;
+
+namespace Header_Util
 {
     template <class T>
     class Node
@@ -7,22 +11,20 @@ namespace header_util
         Node() {}
         ~Node() {}
 
-        /* ================== GET; SET; ================== */
-        T *getElement() { return this->element; }
-        Node<T> *getPrevious() { return this->previous; }
-        Node<T> *getNext() { return this->next; }
-        /* ===================== END ===================== */
+#pragma region GET; SET;
+        T *getElement() { return this->_element; }
+        Node<T> *getPrevious() { return this->_previous; }
+        Node<T> *getNext() { return this->_next; }
+#pragma endregion
 
-        /* =================== Actions =================== */
-        /* ===================== END ===================== */
-
-        /* ============== Auxiliary Methods ============== */
-        /* ===================== END ===================== */
+        Node<T> operator*();
+        void operator++();
+        bool operator!=(Node<T> node);
 
     private:
-        T *element;
-        Node<T> *previous;
-        Node<T> *next;
+        T *_element;
+        Node<T> *_previous;
+        Node<T> *_next;
     };
 
-} // namespace model_util
+}

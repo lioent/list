@@ -1,33 +1,27 @@
-#include <string>
-using std::string;
-
+#include <iostream>
 #include "BaseEntity.hpp"
 
-namespace header_model
+using std::string;
+
+namespace Header_Model
 {
-    class Person
+    class Person : public BaseEntity
     {
     public:
         Person() {}
         ~Person() {}
 
-        /* ================== GET; SET; ================== */
-        string getName() { return this->name; }
-        void setName(string newName) { this->name = newName; }
+#pragma region GET; SET;
+        string getName() { return this->_name; }
+        void setName(string name) { this->_name = name; }
 
         string getRG() { return this->RG; }
-        void setRG(string newRG) { this->RG = newRG; }
-        /* ===================== END ===================== */
-
-        /* =================== Actions =================== */
-        /* ===================== END ===================== */
-
-        /* ============== Auxiliary Methods ============== */
-        /* ===================== END ===================== */
+        void setRG(string rg) { this->_rg = rg; }
+#pragma endregion
 
     private:
-        string name;
-        string RG;
+        string _name;
+        string _rg;
     };
 
-} // namespace model_header
+}

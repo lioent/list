@@ -1,17 +1,17 @@
-namespace header_model
+namespace Header_Model
 {
     class BaseEntity
     {
     public:
-        BaseEntity(unsigned int id = 0) { this->id = id; }
-        ~BaseEntity() { }
+        BaseEntity(unsigned int id = 0) { this->_id = id; }
+        ~BaseEntity() {}
 
-        /* ================== GET; SET; ================== */
-        unsigned int getID() { return this->id; }
-        /* ===================== END ===================== */
+#pragma region GET;
+        unsigned int getID() { return this->_id; }
+#pragma endregion
 
     private:
-        unsigned int id;
+        unsigned int _id;
     }
-    
-} // namespace header_model
+
+}

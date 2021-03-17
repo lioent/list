@@ -8,7 +8,6 @@
 			"args": [
 				"-g", "${workspaceFolder}\\_main.cpp",
 				"-I", "${workspaceFolder}\\src",
-				"-I", "${workspaceFolder}\\src\\header\\util",
 				"-I", "${workspaceFolder}\\includes",
 				"-o", "${workspaceFolder}\\_main.exe"
 			],
