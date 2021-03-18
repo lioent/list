@@ -1,8 +1,9 @@
-#include "FileManager.hpp";
+#include "Manager/FileManager.hpp"
 
 #include <iostream>
 
 using std::cout;
+using std::endl;
 using std::getline;
 using std::string;
 using std::make_unique;
@@ -22,7 +23,6 @@ Header_Manager::FileManager::~FileManager()
 }
 
 #pragma region Actions
-
 List<string> Header_Manager::FileManager::readData()
 {
     List<string> dataSet = List<string> {};
@@ -31,12 +31,12 @@ List<string> Header_Manager::FileManager::readData()
         string line;
         while (getline(*(this->inputFileStream), line))
         {
-            cout << line << '\n';
+            //cout << line << '\n';
         }
         this->inputFileStream->close();
     }
     else
-        cout << "Unable to open file";
+        cout << "Unable to open file" << endl;
 
     return dataSet;
 }
@@ -51,5 +51,4 @@ void Header_Manager::FileManager::writeData(string data)
     else
         cout << "Unable to open file";
 }
-
 #pragma endregion

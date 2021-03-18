@@ -1,3 +1,4 @@
+#pragma once
 #include "Node.hpp"
 
 using std::unique_ptr;
@@ -18,13 +19,13 @@ namespace Header_Util
 #pragma endregion
 
 #pragma region Actions
-        void insert(unsigned int index, T *element);
+        void insert(unsigned int index, T *element) {}
         void insert(T *element) { insert(0, element); }
 
-        void remove(unsigned int index);
-        void remove(T *element) { remove(length - 1); }
+        void remove(unsigned int index) {}
+        void remove(T *element) { remove(this->_size - 1); }
 
-        void sort();
+        void sort() {}
 #pragma endregion
 
 // #pragma region Auxiliary Methods
@@ -39,6 +40,5 @@ namespace Header_Util
         Node<T>* _first;
         Node<T>* _last;
         unsigned int _size;
-
     };
 }

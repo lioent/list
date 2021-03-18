@@ -2,16 +2,17 @@
 
 using std::string;
 
-namespace Header_Manager
+namespace Header_Menu
 {
     class MenuItem
     {
     public:
+    MenuItem() {}
+    ~MenuItem() {}
+
 #pragma region GET; SET;
         int getKey()
-        {
-            return this->_key;
-        }
+        { return this->_key; }
         void setKey(int key) { this->_key = key; }
 
         string getDescription() { return this->_description; }

@@ -3,7 +3,7 @@ namespace Header_Util
     template <class T>
     class SequentialList
     {
-        public:
+    public:
         SequentialList();
         ~SequentialList();
 
@@ -17,8 +17,9 @@ namespace Header_Util
         void sort();
 #pragma endregion
 
-        private:
-        T* _list;
+    private:
+        T *_list;
         unsigned int _size;
     };
+
 }

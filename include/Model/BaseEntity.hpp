@@ -12,6 +12,5 @@ namespace Header_Model
 
     private:
         unsigned int _id;
-    }
-
+    };
 }

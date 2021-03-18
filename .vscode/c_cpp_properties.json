@@ -21,7 +21,7 @@
             "compilerPath": "${myCompilerPath}",
             "cStandard": "gnu11",
             "cppStandard": "gnu++14",
-            "intelliSenseMode": "windows-gcc-x86"
+            "intelliSenseMode": "clang-x86"
         }
     ],
     "version": 4

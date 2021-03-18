@@ -1,8 +1,8 @@
 #include "Menu.hpp"
-#include "LinkedListMenu.hpp"
 #include "SequentialListMenu.hpp"
+#include "LinkedListMenu.hpp"
 
-namespace Header_Manager
+namespace Header_Menu
 {
     class MainMenu : public Menu
     {
@@ -10,13 +10,14 @@ namespace Header_Manager
         MainMenu();
         ~MainMenu();
 
+#pragma region Actions
         void openMenu();
         void exitMenu();
+#pragma endregion
 
-    private: 
+    private:
         // sub menus
-        SequentialListMenu _sequentialListMenu;
-        LinkedListMenu _LinkedListMenu;
-        
+        SequentialListMenu *_sequentialListMenu;
+        LinkedListMenu *_linkedListMenu;
     };
 }

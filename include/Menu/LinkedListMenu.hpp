@@ -1,6 +1,6 @@
 #include "Menu.hpp"
 
-namespace Header_Manager
+namespace Header_Menu
 {
     class LinkedListMenu : public Menu
     {
