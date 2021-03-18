@@ -9,10 +9,6 @@ using std::malloc;
 using std::realloc;
 using std::free;
 
-#ifdef USE_EXPORT_KEYWORD
-export
-#endif
-
 template <class T>
 Header_Util::SequentialList<T>::SequentialList()
 {
@@ -26,4 +22,3 @@ Header_Util::SequentialList<T>::~SequentialList()
     free(this->_list);
 }
 
-template class SequentialList<Person>;
