@@ -15,7 +15,7 @@ namespace Header_Model
         string getName() { return this->_name; }
         void setName(string name) { this->_name = name; }
 
-        string getRG() { return this->RG; }
+        string getRG() { return this->_rg; }
         void setRG(string rg) { this->_rg = rg; }
 #pragma endregion
 
