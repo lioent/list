@@ -2,7 +2,7 @@
 
 using std::string;
 
-namespace Header_Menu
+namespace Header::Menu
 {
     class MenuItem
     {

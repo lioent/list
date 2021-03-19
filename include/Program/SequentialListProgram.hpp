@@ -2,10 +2,10 @@
 #include "Util/SequentialList.hpp"
 #include "Model/Person.hpp"
 
-using namespace Header_Util;
-using namespace Header_Model;
+using namespace Header::Util;
+using namespace Header::Model;
 
-namespace Header_Program
+namespace Header::Program
 {
     class SequentialListProgram : public Program
     {

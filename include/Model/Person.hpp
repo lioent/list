@@ -3,7 +3,7 @@
 
 using std::string;
 
-namespace Header_Model
+namespace Header::Model
 {
     class Person : public BaseEntity
     {

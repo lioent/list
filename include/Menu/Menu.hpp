@@ -1,10 +1,10 @@
 #pragma once
-#include "../Util/List.hpp"
+#include "Util/List.hpp"
 #include "MenuItem.hpp"
 
-using namespace Header_Util;
+using namespace Header::Util;
 
-namespace Header_Menu
+namespace Header::Menu
 {
     class Menu
     {

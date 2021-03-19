@@ -4,7 +4,9 @@ using std::cout;
 using std::cin;
 using std::endl;
 
-void Header_Menu::SequentialListMenu::openMenu()
+#pragma region Actions
+
+void Header::Menu::SequentialListMenu::openMenu()
 {
     bool exit = false;
     do
@@ -33,3 +35,10 @@ void Header_Menu::SequentialListMenu::openMenu()
         }
     } while (!exit);
 }
+
+void Header::Menu::SequentialListMenu::exitMenu()
+{
+
+}
+
+#pragma endregion

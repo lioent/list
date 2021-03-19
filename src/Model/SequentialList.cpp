@@ -3,21 +3,21 @@
 #include <memory>
 #include <cstdlib>
 
-using namespace Header_Model;
+using namespace Header::Model;
 
 using std::malloc;
 using std::realloc;
 using std::free;
 
 template <class T>
-Header_Util::SequentialList<T>::SequentialList()
+Header::Util::SequentialList<T>::SequentialList()
 {
     this->_count = 0;
     this->_list = (T *)malloc(0);
 }
 
 template <class T>
-Header_Util::SequentialList<T>::~SequentialList()
+Header::Util::SequentialList<T>::~SequentialList()
 {
     free(this->_list);
 }

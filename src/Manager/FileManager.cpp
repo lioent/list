@@ -8,7 +8,7 @@ using std::getline;
 using std::string;
 using std::make_unique;
 
-Header_Manager::FileManager::FileManager(string fileName)
+Header::Manager::FileManager::FileManager(string fileName)
 {
     this->fileName = fileName;
     if (this->fileName != "")
@@ -18,12 +18,12 @@ Header_Manager::FileManager::FileManager(string fileName)
     }
 }
 
-Header_Manager::FileManager::~FileManager()
+Header::Manager::FileManager::~FileManager()
 {
 }
 
 #pragma region Actions
-List<string> Header_Manager::FileManager::readData()
+List<string> Header::Manager::FileManager::readData()
 {
     List<string> dataSet = List<string> {};
     if (this->inputFileStream->is_open())
@@ -41,7 +41,7 @@ List<string> Header_Manager::FileManager::readData()
     return dataSet;
 }
 
-void Header_Manager::FileManager::writeData(string data)
+void Header::Manager::FileManager::writeData(string data)
 {
     if (this->outputFileStream->is_open())
     {

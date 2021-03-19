@@ -1,17 +1,18 @@
+#pragma once
+
+#include "Util/List.hpp"
 #include <iostream>
 #include <fstream>
 #include <memory>
-
-#include "../util/List.hpp"
 
 using std::string;
 using std::ifstream;
 using std::ofstream;
 using std::unique_ptr;
 
-using namespace Header_Util;
+using namespace Header::Util;
 
-namespace Header_Manager
+namespace Header::Manager
 {
     class FileManager
     {

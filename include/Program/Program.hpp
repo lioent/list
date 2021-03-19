@@ -1,11 +1,10 @@
 #include "../Manager/FileManager.hpp"
 #include <memory>
 
-using namespace Header_Manager;
+using namespace Header::Manager;
 using std::unique_ptr;
 
-
-namespace Header_Program
+namespace Header::Program
 {
     class Program
     {

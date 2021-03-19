@@ -1,4 +1,4 @@
-namespace Header_Model
+namespace Header::Model
 {
     class BaseEntity
     {

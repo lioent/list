@@ -3,7 +3,7 @@
 
 using std::unique_ptr;
 
-namespace Header_Util
+namespace Header::Util
 {
     template <class T>
     class Node

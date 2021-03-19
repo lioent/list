@@ -2,7 +2,7 @@
 #include "SequentialListMenu.hpp"
 #include "LinkedListMenu.hpp"
 
-namespace Header_Menu
+namespace Header::Menu
 {
     class MainMenu : public Menu
     {

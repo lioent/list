@@ -1,9 +1,9 @@
 #include "Menu.hpp"
 #include "Program/SequentialListProgram.hpp"
 
-using namespace Header_Program;
+using namespace Header::Program;
 
-namespace Header_Menu
+namespace Header::Menu
 {
     class SequentialListMenu : public Menu
     {

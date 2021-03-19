@@ -7,20 +7,20 @@ using std::cin;
 using std::cout;
 using std::endl;
 
-using namespace Header_Util;
+using namespace Header::Util;
 
-Header_Menu::MainMenu::MainMenu()
+Header::Menu::MainMenu::MainMenu()
 {
     openMenu();
 }
 
-Header_Menu::MainMenu::~MainMenu()
+Header::Menu::MainMenu::~MainMenu()
 {
     exitMenu();
 }
 
 #pragma region Actions
-void Header_Menu::MainMenu::openMenu()
+void Header::Menu::MainMenu::openMenu()
 {
     bool exit = false;
     do
@@ -62,7 +62,7 @@ void Header_Menu::MainMenu::openMenu()
     } while (!exit);
 }
 
-void Header_Menu::MainMenu::exitMenu()
+void Header::Menu::MainMenu::exitMenu()
 {
     
 }
