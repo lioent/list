@@ -26,8 +26,8 @@ namespace Header::Manager
 #pragma endregion
 
     private:
-        string fileName;
-        unique_ptr<ofstream> outputFileStream;
-        unique_ptr<ifstream> inputFileStream;
+        string _fileName;
+        ofstream _outputFileStream;
+        ifstream _inputFileStream;
     };
 }

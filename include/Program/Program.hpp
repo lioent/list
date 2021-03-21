@@ -1,4 +1,4 @@
-#include "../Manager/FileManager.hpp"
+#include "Manager/FileManager.hpp"
 #include <memory>
 
 using namespace Header::Manager;
@@ -9,8 +9,8 @@ namespace Header::Program
     class Program
     {
     public:
-        Program() {}
-        ~Program() {}
+        Program();
+        ~Program();
 
 #pragma region Actions
         virtual void execute() {}

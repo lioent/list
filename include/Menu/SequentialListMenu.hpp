@@ -8,8 +8,8 @@ namespace Header::Menu
     class SequentialListMenu : public Menu
     {
     public:
-        SequentialListMenu() : Menu() {}
-        ~SequentialListMenu() {}
+        SequentialListMenu();
+        ~SequentialListMenu();
 
 #pragma region Actions
 

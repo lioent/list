@@ -8,15 +8,19 @@ namespace Header::Model
     class Person : public BaseEntity
     {
     public:
-        Person() {}
-        ~Person() {}
+        Person(string name = "", string rg = "");
+        ~Person();
 
 #pragma region GET; SET;
-        string getName() { return this->_name; }
-        void setName(string name) { this->_name = name; }
+        string getName() const { return this->_name; }
+        void setName(string const name) { this->_name = name; }
 
-        string getRG() { return this->_rg; }
-        void setRG(string rg) { this->_rg = rg; }
+        string getRG() const { return this->_rg; }
+        void setRG(string const rg) { this->_rg = rg; }
+#pragma endregion
+
+#pragma region Operator Oveload
+        bool operator==(Person comparer);
 #pragma endregion
 
     private:

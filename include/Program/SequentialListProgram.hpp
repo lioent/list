@@ -10,8 +10,8 @@ namespace Header::Program
     class SequentialListProgram : public Program
     {
     public:
-        SequentialListProgram() : Program() {}
-        ~SequentialListProgram() {}
+        SequentialListProgram();
+        ~SequentialListProgram();
 
 #pragma region Actions
 

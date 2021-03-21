@@ -1,11 +1,20 @@
 #include "Menu/SequentialListMenu.hpp"
 
-using std::cout;
 using std::cin;
+using std::cout;
 using std::endl;
 
-#pragma region Actions
+Header::Menu::SequentialListMenu::SequentialListMenu()
+    : Header::Menu::Menu::Menu(),
+    _sequentialListProgram()
+{
+}
 
+Header::Menu::SequentialListMenu::~SequentialListMenu()
+{
+}
+
+#pragma region Actions
 void Header::Menu::SequentialListMenu::openMenu()
 {
     bool exit = false;
@@ -20,6 +29,7 @@ void Header::Menu::SequentialListMenu::openMenu()
         switch (option)
         {
         case '1':
+            this->_sequentialListProgram.printAllData();
             break;
 
         case ' ':
@@ -38,7 +48,5 @@ void Header::Menu::SequentialListMenu::openMenu()
 
 void Header::Menu::SequentialListMenu::exitMenu()
 {
-
 }
-
 #pragma endregion

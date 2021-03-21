@@ -1,44 +1,55 @@
 #pragma once
 #include "Node.hpp"
 
-using std::unique_ptr;
-
 namespace Header::Util
 {
     template <class T>
     class List
     {
     public:
-        List() {}
-        ~List() {}
+        List(T element);
+        List();
+        ~List();
 
 #pragma region GET / SET
-        Node<T> *getFirst() { return this->first->_getElement(); }
-        Node<T> *getLast() { return this->first->_getElement(); }
-        unsigned int getSize() { return this->_size; }
+        Node<T> *getFirst()
+        {
+            return this->_first;
+        }
+        void setFirst(Node<T> *first) { this->_first = first; }
+
+        Node<T> *getLast() { return this->_last; }
+        void setLast(Node<T> *last) { this->_last = last; }
+
+        unsigned int getSize() const { return this->_size; }
+        void setSize(const unsigned int size) { this->_size = size; }
 #pragma endregion
 
 #pragma region Actions
-        void insert(unsigned int index, T *element) {}
-        void insert(T *element) { insert(0, element); }
+        void insert(T element, unsigned int index);
+        void insert(T element) { append(element); }
+        void push(T element);
+        void append(T element);
 
-        void remove(unsigned int index) {}
-        void remove(T *element) { remove(this->_size - 1); }
+        void remove(T element) {}
+        void pop(unsigned int index) {}
+        void pop() { pop(this->getSize() - 1); }
+
+        Node<T> *findAtIndex(unsigned int index);
+        Node<T> *find(T element);
 
         void sort() {}
 #pragma endregion
 
-// #pragma region Auxiliary Methods
-//         iterator begin() { return &this->_first; }
-//         const_iterator begin() const { return &this->_first; }
-//         iterator end() { return &this->_last; }
-//         const_iterator end() const { return &this->_last; }
-// #pragma endregion
+#pragma region Auxiliary Methods
+    private:
+        void initializeList();
+        void insertFirstElement(T element);
+#pragma endregion
 
     private:
-        Node<T>* _element;
-        Node<T>* _first;
-        Node<T>* _last;
         unsigned int _size;
+        Node<T> *_first;
+        Node<T> *_last;
     };
 }

@@ -1,21 +1,15 @@
 #include "Manager/FileManager.hpp"
-
 #include <iostream>
 
 using std::cout;
 using std::endl;
 using std::getline;
-using std::string;
 using std::make_unique;
+using std::string;
 
 Header::Manager::FileManager::FileManager(string fileName)
 {
-    this->fileName = fileName;
-    if (this->fileName != "")
-    {
-        this->outputFileStream = make_unique<ofstream>(this->fileName);
-        this->inputFileStream = make_unique<ifstream>(this->fileName);
-    }
+    this->_fileName = fileName;
 }
 
 Header::Manager::FileManager::~FileManager()
@@ -25,15 +19,19 @@ Header::Manager::FileManager::~FileManager()
 #pragma region Actions
 List<string> Header::Manager::FileManager::readData()
 {
-    List<string> dataSet = List<string> {};
-    if (this->inputFileStream->is_open())
+    List<string> dataSet = List<string>{};
+    this->_inputFileStream.open(this->_fileName);
+    if (this->_inputFileStream.is_open())
     {
         string line;
-        while (getline(*(this->inputFileStream), line))
+        while (this->_inputFileStream.good())
         {
+            getline(this->_inputFileStream, line);
+            if(line != "")
+                dataSet.insert(line);
             //cout << line << '\n';
         }
-        this->inputFileStream->close();
+        this->_inputFileStream.close();
     }
     else
         cout << "Unable to open file" << endl;
@@ -43,10 +41,11 @@ List<string> Header::Manager::FileManager::readData()
 
 void Header::Manager::FileManager::writeData(string data)
 {
-    if (this->outputFileStream->is_open())
+    this->_outputFileStream.open(this->_fileName);
+    if (this->_outputFileStream.is_open())
     {
-        *(this->outputFileStream) << data << '\n';
-        this->outputFileStream->close();
+        this->_outputFileStream << data << '\n';
+        this->_outputFileStream.close();
     }
     else
         cout << "Unable to open file";

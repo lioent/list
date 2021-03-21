@@ -1,7 +1,4 @@
 #pragma once
-#include <memory>
-
-using std::unique_ptr;
 
 namespace Header::Util
 {
@@ -9,23 +6,29 @@ namespace Header::Util
     class Node
     {
     public:
-        Node() {}
-        ~Node() {}
+        Node(const T element);
+        Node();
+        ~Node();
 
 #pragma region GET; SET;
-        T *getElement() { return this->_element; }
+        T getElement() const { return this->_element; }
+        void setElement(const T element) { this->_element = element; }
+
         Node<T> *getPrevious() { return this->_previous; }
+        void setPrevious(Node<T> *previous) { this->_previous = previous; }
+
         Node<T> *getNext() { return this->_next; }
+        void setNext(Node<T> *next) { this->_next = next; }
 #pragma endregion
 
-        Node<T> operator*();
-        void operator++();
-        bool operator!=(Node<T> node);
+#pragma region Operator Overload
+        Node<T> &operator++();
+        Node<T> operator++(int);
+#pragma endregion
 
     private:
-        T *_element;
+        T _element;
         Node<T> *_previous;
         Node<T> *_next;
     };
-
 }
