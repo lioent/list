@@ -11,14 +11,14 @@ namespace Header::Util
         ~Node();
 
 #pragma region GET; SET;
-        T getElement() const { return this->_element; }
-        void setElement(const T element) { this->_element = element; }
+        T element() const { return this->_element; }
+        void element(const T element) { this->_element = element; }
 
-        Node<T> *getPrevious() { return this->_previous; }
-        void setPrevious(Node<T> *previous) { this->_previous = previous; }
+        Node<T> *previous() { return this->_previous; }
+        void previous(Node<T> *previous) { this->_previous = previous; }
 
-        Node<T> *getNext() { return this->_next; }
-        void setNext(Node<T> *next) { this->_next = next; }
+        Node<T> *next() { return this->_next; }
+        void next(Node<T> *next) { this->_next = next; }
 #pragma endregion
 
 #pragma region Operator Overload

@@ -87,8 +87,8 @@ void Header::Util::SequentialList<T>::remove(unsigned int index)
     T* newList = new T[this->size()];
 
      // Copying values after index
-    for (int idx = this->size();
-         idx >= index;
+    for (int idx = this->size() - 1;
+         idx >= index && idx < this->size();
          idx--)
     {
         newList[idx] = this->_list[idx + 1];
@@ -96,7 +96,7 @@ void Header::Util::SequentialList<T>::remove(unsigned int index)
 
     // Copying values before index
     for (int idx = 0;
-         idx < index;
+         idx < index && idx < this->size();
          idx++)
     {
         newList[idx] = this->_list[idx];

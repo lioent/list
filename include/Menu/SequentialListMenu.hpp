@@ -20,7 +20,6 @@ namespace Header::Menu
         {
             return this->_option;
         }
-
         void option(const MenuOptionEnum::MenuOption option) { this->_option = option; }
 
         InsertMenuOptionEnum::InsertMenuOption insertOption() const { return this->_insertOption; }
