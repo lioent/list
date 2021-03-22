@@ -7,7 +7,8 @@ using std::endl;
 Header::Program::MainProgram::MainProgram()
     : Program(),
       _mainMenu(),
-      _sequentialListProgram()
+      _sequentialListProgram(),
+      _linkedListProgram()
 {
 }
 

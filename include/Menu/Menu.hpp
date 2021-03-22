@@ -19,5 +19,7 @@ namespace Header::Menu
 
     protected:
         List<MenuItem> _items;
+        int key;
+        string description;
     };
 }

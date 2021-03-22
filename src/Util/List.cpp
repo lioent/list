@@ -12,7 +12,6 @@ Header::Util::List<T>::List(T element)
     this->_last = newNode;
     this->_size = 1;
 }
-
 // Initializes an empty list.
 template <class T>
 Header::Util::List<T>::List()
@@ -21,7 +20,6 @@ Header::Util::List<T>::List()
     this->_first = nullptr;
     this->_last = nullptr;
 }
-
 // Deallocates every element in the list.
 template <class T>
 Header::Util::List<T>::~List()
@@ -65,6 +63,7 @@ void Header::Util::List<T>::insert(T element, unsigned int index)
         return;
     }
 
+    int c = 4;
     Node<T> *auxiliar = find(index);
     Node<T> *newNode = new Node<T>(element);
 
@@ -74,6 +73,9 @@ void Header::Util::List<T>::insert(T element, unsigned int index)
     auxiliar->previous(newNode);
 
     ++this->_size;
+
+    int m = 6;
+    std::cout << "insert at index: " << c << " conditions and " << m << " assignments" << std::endl;
 }
 // Inserts an element at the beginning of the list.
 template <class T>
@@ -89,6 +91,8 @@ void Header::Util::List<T>::push(T element)
         return;
     }
 
+    int c = 1;
+
     Node<T> *newNode = new Node<T>(element);
 
     newNode->next(this->first());
@@ -96,6 +100,9 @@ void Header::Util::List<T>::push(T element)
     this->first(newNode);
 
     ++this->_size;
+
+    int m = 5;
+    std::cout << "push: " << c << " conditions and " << m << " assignments" << std::endl;
 }
 // Inserts an element at the end of the list.
 template <class T>
@@ -111,6 +118,8 @@ void Header::Util::List<T>::append(T element)
         return;
     }
 
+    int c = 1;
+
     Node<T> *newNode = new Node<T>(element);
 
     newNode->previous(this->last());
@@ -118,6 +127,9 @@ void Header::Util::List<T>::append(T element)
     this->last(newNode);
 
     ++this->_size;
+
+    int m = 5;
+    std::cout << "insert element: " << c << " conditions and " << m << " assignments" << std::endl;
 }
 
 template <class T>
@@ -131,11 +143,15 @@ void Header::Util::List<T>::remove()
         delete (this->first());
         this->first(nullptr);
         this->last(nullptr);
-        this->_size--;
+        this->_size = 0;
         return;
     }
 
+    int c = 2;
+
     remove(this->last()->element());
+
+    std::cout << "remove: " << c << " conditions" << std::endl;
 }
 template <class T>
 void Header::Util::List<T>::remove(T element)
@@ -144,7 +160,6 @@ void Header::Util::List<T>::remove(T element)
         return;
 
     this->_size--;
-    // find element
     Node<T> *nodeToBeRemoved = find(element);
 
     if (nodeToBeRemoved->element() == this->first()->element())
@@ -160,13 +175,17 @@ void Header::Util::List<T>::remove(T element)
         return;
     }
 
+    int c = 3;
+
     nodeToBeRemoved->previous()->next(nodeToBeRemoved->next());
     nodeToBeRemoved->next()->previous(nodeToBeRemoved->previous());
     delete (nodeToBeRemoved);
 
+    int m = 3;
+    std::cout << "remove at index: " << c << " conditions and " << m << " assignments" << std::endl;
+
     return;
 }
-
 template <class T>
 void Header::Util::List<T>::remove(unsigned int index)
 {
@@ -198,6 +217,8 @@ void Header::Util::List<T>::remove(unsigned int index)
         return;
     }
 
+    int c = 4;
+
     Node<T> *nodeToBeRemoved = find(index);
     nodeToBeRemoved->previous()->next(nodeToBeRemoved->next());
     nodeToBeRemoved->next()->previous(nodeToBeRemoved->previous());
@@ -205,6 +226,10 @@ void Header::Util::List<T>::remove(unsigned int index)
     delete (nodeToBeRemoved);
 
     this->_size--;
+
+    int m = 4;
+
+    std::cout << "remove at index: " << c << " conditions and " << m << " assignments" << std::endl;
 }
 
 // Finds the element at the given index.
@@ -220,14 +245,20 @@ Header::Util::Node<T> *Header::Util::List<T>::find(unsigned int index)
     if (index == this->size() - 1)
         return this->last();
 
+    int c = 3;
+    int m = 0;
+
     Node<T> *iterator = this->first();
     for (unsigned int idx = 0;
          idx < index;
          idx++)
     {
         iterator = iterator->next();
+        c++;
+        m++;
     }
 
+    std::cout << "find at index: " << c << " conditions and " << m << " assignments" << std::endl;
     return iterator;
 }
 // Finds the element in the list, if existing.
@@ -235,7 +266,7 @@ template <class T>
 Header::Util::Node<T> *Header::Util::List<T>::find(T element)
 {
     for (Node<T> *iterator = this->first();
-         iterator != this->last()->next();
+         iterator != nullptr;
          iterator = iterator->next())
     {
         if (iterator->element() == element)

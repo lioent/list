@@ -105,7 +105,7 @@ Header::Menu::Enum::InsertMenuOptionEnum::InsertMenuOption Header::Menu::LinkedL
     char option = ' ';
     fflush(stdin);
     cin >> option;
-
+    
     switch (option)
     {
     case InsertMenuOptionEnum::begin:
