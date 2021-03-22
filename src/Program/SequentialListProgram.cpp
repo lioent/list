@@ -43,6 +43,7 @@ void Header::Program::SequentialListProgram::executeMainMenu()
 {
     while (this->menu()->option() != MenuOptionEnum::exit)
     {
+        fflush(stdin);
         this->menu()->openMenu();
         this->menu()->option(this->menu()->readMenuOption());
 
@@ -65,9 +66,15 @@ void Header::Program::SequentialListProgram::executeMainMenu()
 
         case MenuOptionEnum::print:
             this->printAllData();
-
             waitForInput();
-            this->menu()->openMenu();
+            break;
+
+        case MenuOptionEnum::save:
+            executeSaveFile();
+            break;
+
+        case MenuOptionEnum::load:
+            executeLoadFile();
             break;
 
         case MenuOptionEnum::invalid:
@@ -201,6 +208,57 @@ void Header::Program::SequentialListProgram::executeSearch()
 
     printPerson(person);
 }
+void Header::Program::SequentialListProgram::executeSaveFile()
+{
+    fflush(stdin);
+    string fileName;
+    cout << "Enter what the file name is going to be:" << endl;
+    getline(cin, fileName);
+
+    this->fileManager()->fileName(fileName);
+    List<string> *dataSet = new List<string>{};
+    for (unsigned int index = 0;
+         index < this->list()->size();
+         index++)
+    {
+        Person person = this->list(index);
+        string data = person.getName() + ',' + person.getRG();
+        dataSet->append(data);
+    }
+
+    this->fileManager()->writeData(dataSet);
+}
+void Header::Program::SequentialListProgram::executeLoadFile()
+{
+    fflush(stdin);
+    string fileName;
+    cout << "Enter the name of the file you want to extract data from:" << endl;
+    getline(cin, fileName);
+
+    this->fileManager()->fileName(fileName);
+    List<string> dataSet = this->_fileManager->readData();
+    for (Node<string> *iterator = dataSet.first();
+         iterator != nullptr;
+         iterator = iterator->next())
+    {
+        string data[2] = {"", ""};
+        stringstream string_stream(iterator->element());
+        for (int i = 0;
+             string_stream.good() && i < 2;
+             i++)
+        {
+            string line;
+            getline(string_stream, line, ',');
+            data[i] = line;
+        }
+
+        string name = data[0];
+        string rg = data[1];
+
+        Person person = Person(name, rg);
+        this->list()->insert(person, this->list()->size());
+    }
+}
 
 void Header::Program::SequentialListProgram::printAllData()
 {
@@ -217,7 +275,7 @@ void Header::Program::SequentialListProgram::printAllDataFromFile()
     List<string> dataSet = this->_fileManager->readData();
 
     for (Node<string> *iterator = dataSet.first();
-         iterator != dataSet.last();
+         iterator != nullptr;
          iterator = iterator->next())
     {
         string data[2] = {"", ""};
@@ -242,7 +300,6 @@ void Header::Program::SequentialListProgram::printAllDataFromFile()
 Person Header::Program::SequentialListProgram::createPerson()
 {
     fflush(stdin);
-
     string name;
     string rg;
     cout << "Enter the person name (enter empty to cancel):" << endl;

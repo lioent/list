@@ -5,9 +5,9 @@
 #include <fstream>
 #include <memory>
 
-using std::string;
 using std::ifstream;
 using std::ofstream;
+using std::string;
 using std::unique_ptr;
 
 using namespace Header::Util;
@@ -20,9 +20,17 @@ namespace Header::Manager
         FileManager(string fileName = "");
         ~FileManager();
 
+#pragma region GET / SET
+        string fileName() const
+        {
+            return this->_fileName;
+        }
+        void fileName(const string fileName) { this->_fileName = "Saves/" + fileName + ".txt"; }
+#pragma endregion
+
 #pragma region Actions
         List<string> readData();
-        void writeData(string data);
+        void writeData(List<string> *dataSet);
 #pragma endregion
 
     private:

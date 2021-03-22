@@ -120,19 +120,27 @@ void Header::Util::List<T>::append(T element)
     ++this->_size;
 }
 
-
 template <class T>
 void Header::Util::List<T>::remove()
 {
-    if(this->size() == 0)
+    if (this->size() == 0)
         return;
+
+    if (this->size() == 1)
+    {
+        delete (this->first());
+        this->first(nullptr);
+        this->last(nullptr);
+        this->_size--;
+        return;
+    }
 
     remove(this->last()->element());
 }
 template <class T>
 void Header::Util::List<T>::remove(T element)
 {
-    if(this->size() == 0)
+    if (this->size() == 0)
         return;
 
     this->_size--;
@@ -165,9 +173,9 @@ void Header::Util::List<T>::remove(unsigned int index)
     if (index >= this->size() || this->size() == 0)
         return;
 
-    if(this->size() == 1)
+    if (this->size() == 1)
     {
-        delete(this->first());
+        delete (this->first());
         this->first(nullptr);
         this->last(nullptr);
         this->_size--;

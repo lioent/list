@@ -68,9 +68,15 @@ void Header::Program::LinkedListProgram::executeMainMenu()
 
         case MenuOptionEnum::print:
             this->printAllData();
-
             waitForInput();
-            this->menu()->openMenu();
+            break;
+
+        case MenuOptionEnum::save:
+            executeSaveFile();
+            break;
+
+        case MenuOptionEnum::load:
+            executeLoadFile();
             break;
 
         case MenuOptionEnum::invalid:
@@ -183,7 +189,7 @@ void Header::Program::LinkedListProgram::executeRemoveMenu()
 }
 void Header::Program::LinkedListProgram::executeSearch()
 {
-      fflush(stdin);
+    fflush(stdin);
     unsigned int index;
     cout << "Enter an index to look into: (min: 0, max: " << this->list()->size() - 1 << "):" << endl;
     cin >> index;
@@ -203,12 +209,64 @@ void Header::Program::LinkedListProgram::executeSearch()
         return;
     }
 
-     printPerson(person);
+    printPerson(person);
+}
+void Header::Program::LinkedListProgram::executeSaveFile()
+{
+    fflush(stdin);
+    string fileName;
+    cout << "Enter what the file name is going to be:" << endl;
+    getline(cin, fileName);
+
+    this->fileManager()->fileName(fileName);
+    List<string> *dataSet = new List<string>{};
+    for (Node<Person> *iterator = this->list()->first();
+         iterator != nullptr;
+         iterator = iterator->next())
+    {
+        Person person = iterator->element();
+        string data = person.getName() + ',' + person.getRG();
+        dataSet->append(data);
+    }
+
+    this->fileManager()->writeData(dataSet);
+}
+void Header::Program::LinkedListProgram::executeLoadFile()
+{
+    fflush(stdin);
+    string fileName;
+    cout << "Enter the name of the file you want to extract data from:" << endl;
+    getline(cin, fileName);
+
+    this->fileManager()->fileName(fileName);
+    List<string> dataSet = this->_fileManager->readData();
+    for (Node<string> *iterator = dataSet.first();
+         iterator != nullptr;
+         iterator = iterator->next())
+    {
+        string data[2] = {"", ""};
+        stringstream string_stream(iterator->element());
+        for (int i = 0;
+             string_stream.good() && i < 2;
+             i++)
+        {
+            string line;
+            getline(string_stream, line, ',');
+            data[i] = line;
+        }
+
+        string name = data[0];
+        string rg = data[1];
+
+        Person person = Person(name, rg);
+        this->list()->append(person);
+    }
+    
 }
 
 void Header::Program::LinkedListProgram::printAllData()
 {
-    if(this->list()->size() == 0)
+    if (this->list()->size() == 0)
         return;
 
     for (Node<Person> *iterator = this->list()->first();
@@ -223,7 +281,7 @@ void Header::Program::LinkedListProgram::printAllDataFromFile()
     List<string> dataSet = this->_fileManager->readData();
 
     for (Node<string> *iterator = dataSet.first();
-         iterator != dataSet.last();
+         iterator != nullptr;
          iterator = iterator->next())
     {
         string data[2] = {"", ""};
@@ -248,7 +306,6 @@ void Header::Program::LinkedListProgram::printAllDataFromFile()
 Header::Model::Person Header::Program::LinkedListProgram::createPerson()
 {
     fflush(stdin);
-
     string name;
     string rg;
     cout << "Enter the person name (enter empty to cancel):" << endl;
