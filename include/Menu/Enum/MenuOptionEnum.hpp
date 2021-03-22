@@ -6,7 +6,9 @@ namespace Header::Menu::Enum::MenuOptionEnum
     {
         invalid = -1,
         insert = '1',
-        print = '2',
+        remove = '2',
+        search = '3',
+        print = '4',
         exit = 'X'
     };
 }

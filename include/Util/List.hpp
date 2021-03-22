@@ -32,8 +32,8 @@ namespace Header::Util
         void append(T element);
 
         void remove(T element) {}
-        void pop(unsigned int index) {}
-        void pop() { pop(this->getSize() - 1); }
+        void remove(unsigned int index) {}
+        void remove() { remove(this->getSize() - 1); }
 
         Node<T> *findAtIndex(unsigned int index);
         Node<T> *find(T element);

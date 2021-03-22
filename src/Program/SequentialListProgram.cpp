@@ -29,6 +29,11 @@ void Header::Program::SequentialListProgram::execute()
 
     executeMainMenu();
 }
+
+void Header::Program::SequentialListProgram::close()
+{
+    delete (this->_list);
+}
 #pragma endregion
 
 #pragma region Auxiliary Methods
@@ -37,9 +42,9 @@ void Header::Program::SequentialListProgram::executeMainMenu()
     while (this->menu()->option() != MenuOptionEnum::exit)
     {
         this->menu()->openMenu();
-        //this->menu().option(this->menu().readMenuOption());
-        MenuOptionEnum::MenuOption option = this->menu()->readMenuOption();
-        switch (option)
+        this->menu()->option(this->menu()->readMenuOption());
+
+        switch (this->menu()->option())
         {
         case MenuOptionEnum::exit:
             break;
@@ -48,8 +53,17 @@ void Header::Program::SequentialListProgram::executeMainMenu()
             executeInsertMenu();
             break;
 
+        case MenuOptionEnum::remove:
+            executeRemoveMenu();
+            break;
+
+        case MenuOptionEnum::search:
+            executeSearch();
+            break;
+
         case MenuOptionEnum::print:
             this->printAllData();
+
             waitForInput();
             this->menu()->openMenu();
             break;
@@ -59,6 +73,8 @@ void Header::Program::SequentialListProgram::executeMainMenu()
             break;
         }
     }
+
+    this->menu()->option(MenuOptionEnum::invalid);
 }
 
 void Header::Program::SequentialListProgram::executeInsertMenu()
@@ -79,43 +95,124 @@ void Header::Program::SequentialListProgram::executeInsertMenu()
             break;
 
         case InsertMenuOptionEnum::begin:
-        {
             this->list()->insert(person, 0);
-            break;
-        }
-        case InsertMenuOptionEnum::end:
-        {
-            this->list()->insert(person, this->list()->size());
-            break;
-        }
-        case InsertMenuOptionEnum::index:
-        {
-            unsigned int index;
-            cout << "What index do you want to insert the Person in (min: 0, max:" << this->list()->size() << "):";
-            cin >> index;
+            printAllData();
 
-            this->list()->insert(person, index);
             this->menu()->insertOption(InsertMenuOptionEnum::exit);
             break;
-        }
+
+        case InsertMenuOptionEnum::end:
+            this->list()->insert(person, this->list()->size());
+            printAllData();
+
+            this->menu()->insertOption(InsertMenuOptionEnum::exit);
+            break;
+
+        case InsertMenuOptionEnum::index:
+            fflush(stdin);
+            unsigned int index;
+            cout << "What index do you want to insert the Person in (min: 0, max: " << this->list()->size() << "):";
+            cin >> index;
+            fflush(stdin);
+
+            this->list()->insert(person, index);
+            printAllData();
+
+            this->menu()->insertOption(InsertMenuOptionEnum::exit);
+            break;
+
         case InsertMenuOptionEnum::invalid:
-        {
-            std::cout << "Invalid option." << std::endl;
+            cout << "Invalid option." << endl;
 
             break;
-        }
         }
     }
 
     this->menu()->insertOption(InsertMenuOptionEnum::invalid);
 }
 
-void Header::Program::SequentialListProgram::close()
+void Header::Program::SequentialListProgram::executeRemoveMenu()
 {
-    delete (this->_list);
+    while (this->menu()->removeOption() != RemoveMenuOptionEnum::exit)
+    {
+        this->menu()->openRemoveMenu();
+        this->menu()->removeOption(this->menu()->readRemoveMenuOption());
+        switch (this->menu()->removeOption())
+        {
+        case RemoveMenuOptionEnum::exit:
+            break;
+
+        case RemoveMenuOptionEnum::begin:
+            this->list()->remove(0);
+            printAllData();
+            this->menu()->removeOption(RemoveMenuOptionEnum::exit);
+
+            break;
+
+        case RemoveMenuOptionEnum::end:
+            this->list()->remove();
+            printAllData();
+            this->menu()->removeOption(RemoveMenuOptionEnum::exit);
+
+            break;
+
+        case RemoveMenuOptionEnum::index:
+            fflush(stdin);
+            unsigned int index;
+            cout << "What index do you want to remove the Person from (min: 0, max: " << this->list()->size() - 1 << "):";
+            cin >> index;
+            fflush(stdin);
+
+            this->list()->remove(index);
+            printAllData();
+            this->menu()->removeOption(RemoveMenuOptionEnum::exit);
+            break;
+
+        case RemoveMenuOptionEnum::invalid:
+            cout << "Invalid option." << endl;
+            break;
+        }
+    }
+    this->menu()->removeOption(RemoveMenuOptionEnum::invalid);
+}
+
+void Header::Program::SequentialListProgram::executeSearch()
+{
+    fflush(stdin);
+    unsigned int index;
+    cout << "Enter an index to look into: (min: 0, max: " << this->list()->size() - 1 << "):";
+    cin >> index;
+    fflush(stdin);
+
+    if (index > this->list()->size() - 1)
+    {
+        cout << "Invalid index" << endl;
+        return;
+    }
+
+    Person person = this->list()->findAtIndex(index);
+    // TO DO: make an "isValid" method in "Person" class
+    if (person.getName() == "" || person.getRG() == "")
+    {
+        cout << "Not found." << endl;
+        return;
+    }
+
+    printPerson(person);
 }
 
 void Header::Program::SequentialListProgram::printAllData()
+{
+    for (int index = 0;
+         index < this->list()->size();
+         index++)
+    {
+        Person person = this->list(index);
+        printPerson(person);
+    }
+}
+
+void Header::Program::SequentialListProgram::printAllDataFromFile()
 {
     List<string> dataSet = this->_fileManager->readData();
 
@@ -144,22 +241,33 @@ void Header::Program::SequentialListProgram::printAllData()
 
 Person Header::Program::SequentialListProgram::createPerson()
 {
+    fflush(stdin);
+
     string name;
     string rg;
     cout << "Enter the person name (enter empty to cancel):" << endl;
-    cin >> name;
+    getline(cin, name);
     fflush(stdin);
 
-    if (name == " " || name == "\n")
+    // TO DO: make an "nameIsValid" method in "Person" class
+    if (name == "" || name == " " || name == "\n")
         return Person();
 
     cout << "Enter the person RG: (enter empty to cancel)" << endl;
     cin >> rg;
     fflush(stdin);
 
-    if (rg == " " || rg == "\n")
+    // TO DO: make an "rgIsValid" method in "Person" class
+    if (rg == "" || rg == " " || rg == "\n")
         return Person();
 
     return Person(name, rg);
+}
+
+void Header::Program::SequentialListProgram::printPerson(const Person person)
+{
+    cout << "Name: " << person.getName()
+         << " - RG: " << person.getRG()
+         << endl;
 }
 #pragma endregion

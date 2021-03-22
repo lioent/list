@@ -1,8 +1,9 @@
 #pragma once
 
 #include "Menu.hpp"
-#include "Menu/Enum/MenuInsertOptionEnum.hpp"
 #include "Menu/Enum/MenuOptionEnum.hpp"
+#include "Menu/Enum/MenuInsertOptionEnum.hpp"
+#include "Menu/Enum/RemoveMenuOptionEnum.hpp"
 
 using namespace Header::Menu::Enum;
 
@@ -24,6 +25,9 @@ namespace Header::Menu
 
         InsertMenuOptionEnum::InsertMenuOption insertOption() const { return this->_insertOption; }
         void insertOption(InsertMenuOptionEnum::InsertMenuOption insertOption) { this->_insertOption = insertOption; }
+
+        RemoveMenuOptionEnum::RemoveMenuOption removeOption() const { return this->_removeOption; }
+        void removeOption(RemoveMenuOptionEnum::RemoveMenuOption removeOption) { this->_removeOption = removeOption; }
 #pragma endregion
 
 #pragma region Actions
@@ -36,11 +40,12 @@ namespace Header::Menu
 
         MenuOptionEnum::MenuOption readMenuOption();
         InsertMenuOptionEnum::InsertMenuOption readInsertMenuOption();
+        RemoveMenuOptionEnum::RemoveMenuOption readRemoveMenuOption();
 #pragma endregion
 
     private:
         MenuOptionEnum::MenuOption _option;
         InsertMenuOptionEnum::InsertMenuOption _insertOption;
+        RemoveMenuOptionEnum::RemoveMenuOption _removeOption;
     };
 }
-

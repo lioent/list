@@ -19,7 +19,7 @@ namespace Header::Program
         }
 
         SequentialListProgram sequentialListProgram() const { return this->_sequentialListProgram; }
-        // LinkedListProgram linkedListProgram() const { return this->_linkedListProgram; }
+        // LinkedListProgram linkedListProgram() const { return this->_linkedListProgram;}
 #pragma endregion
 
 #pragma region Actions

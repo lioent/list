@@ -18,9 +18,13 @@ namespace Header::Program
         ~SequentialListProgram();
 
 #pragma region GET / SET
-        SequentialListMenu *menu() const { return this->_sequentialListMenu; }
-        
+        SequentialListMenu *menu() const
+        {
+            return this->_sequentialListMenu;
+        }
+
         SequentialList<Person> *list() const { return this->_list; }
+        Person list(int index) const { return this->list()->list(index); }
 #pragma endregion
 
 #pragma region Actions
@@ -33,11 +37,14 @@ namespace Header::Program
         // TO DO: make different menus for these methods
         void executeMainMenu();
         void executeInsertMenu();
+        void executeRemoveMenu();
+        void executeSearch();
 
-        void insertData();
         void printAllData();
+        void printAllDataFromFile();
 
         Person createPerson();
+        void printPerson(const Person person);
 #pragma endregion
 
     private:

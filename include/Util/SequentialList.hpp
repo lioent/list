@@ -14,6 +14,8 @@ namespace Header::Util
             return this->_size;
         }
         void size(const unsigned int size) { this->_size = size; }
+
+        T list(int index) const { return this->_list[index]; }
 #pragma endregion
 
 #pragma region Actions
@@ -22,9 +24,9 @@ namespace Header::Util
         void push(T element);
         void append(T element);
 
-        void remove(T element) {}
-        void pop(unsigned int index) {}
-        void pop() { pop(this->size() - 1); }
+        void remove(T element);
+        void remove(unsigned int index);
+        void remove() { remove(this->size() - 1); }
 
         T findAtIndex(unsigned int index);
         T find(T element);
