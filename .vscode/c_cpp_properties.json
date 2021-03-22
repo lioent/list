@@ -1,7 +1,7 @@
 {
     "env": {
         "myDefaultIncludePath": [
-            "${workspaceFolder}/**", 
+            "${workspaceFolder}/**",
             "${workspaceFolder}/src/**",
             "${workspaceFolder}/include/**"
         ],
@@ -11,7 +11,8 @@
         {
             "name": "Win32",
             "includePath": [
-                "${myDefaultIncludePath}"
+                "${myDefaultIncludePath}",
+                "${workspaceFolder}/include"
             ],
             "defines": [
                 "_DEBUG",
@@ -21,7 +22,7 @@
             "compilerPath": "${myCompilerPath}",
             "cStandard": "gnu11",
             "cppStandard": "gnu++14",
-            "intelliSenseMode": "windows-gcc-x86"
+            "intelliSenseMode": "clang-x86"
         }
     ],
     "version": 4
