@@ -17,11 +17,6 @@ namespace Header::Menu
         virtual void exitMenu() {}
 #pragma endregion
 
-#pragma region Auxiliary Methods
-    protected:
-        void waitForInput();
-#pragma endregion
-
     protected:
         List<MenuItem> _items;
     };

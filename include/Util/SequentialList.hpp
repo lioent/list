@@ -4,21 +4,36 @@ namespace Header::Util
     class SequentialList
     {
     public:
+        SequentialList(T element);
         SequentialList();
         ~SequentialList();
 
+#pragma region
+        unsigned int size() const
+        {
+            return this->_size;
+        }
+        void size(const unsigned int size) { this->_size = size; }
+#pragma endregion
+
 #pragma region Actions
-        void insert(unsigned int index, T element) {}
-        void insert(T element) { insert(this->_size, element); }
+        void insert(T &element, unsigned int index);
+        void insert(T element) { append(element); }
+        void push(T element);
+        void append(T element);
 
-        void remove(unsigned int index) {}
-        void remove(T element) { remove(this->_size - 1); }
+        void remove(T element) {}
+        void pop(unsigned int index) {}
+        void pop() { pop(this->size() - 1); }
 
-        void sort();
+        T findAtIndex(unsigned int index);
+        T find(T element);
+
+        void sort() {}
 #pragma endregion
 
     private:
-        T *_list;
         unsigned int _size;
+        T *_list;
     };
 }

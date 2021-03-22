@@ -10,6 +10,15 @@ namespace Header::Menu
         MainMenu();
         ~MainMenu();
 
+#pragma region GET / SET
+        SequentialListMenu sequentialListMenu() const
+        {
+            return this->_sequentialListMenu;
+        }
+
+        LinkedListMenu linkedListMenu() const { return this->_linkedListMenu; }
+#pragma endregion
+
 #pragma region Actions
         void openMenu();
         void exitMenu();
@@ -17,7 +26,7 @@ namespace Header::Menu
 
     private:
         // sub menus
-        SequentialListMenu *_sequentialListMenu;
-        LinkedListMenu *_linkedListMenu;
+        SequentialListMenu _sequentialListMenu;
+        LinkedListMenu _linkedListMenu;
     };
 }

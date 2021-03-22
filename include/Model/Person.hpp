@@ -13,14 +13,15 @@ namespace Header::Model
 
 #pragma region GET; SET;
         string getName() const { return this->_name; }
-        void setName(string const name) { this->_name = name; }
+        void setName(const string name) { this->_name = name; }
 
         string getRG() const { return this->_rg; }
-        void setRG(string const rg) { this->_rg = rg; }
+        void setRG(const string rg) { this->_rg = rg; }
 #pragma endregion
 
 #pragma region Operator Oveload
-        bool operator==(Person comparer);
+        bool operator==(const Person &comparer);
+        void operator=(const Person &person);
 #pragma endregion
 
     private:

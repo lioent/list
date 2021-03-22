@@ -1,29 +1,35 @@
-#include "Menu/MainMenu.hpp"
-#include "Util/Node.hpp"
-#include <iostream>
+#include "Program/MainProgram.hpp"
 
-
-using std::cin;
 using std::cout;
+using std::cin;
 using std::endl;
 
-using namespace Header::Util;
-
-Header::Menu::MainMenu::MainMenu() :
-    Header::Menu::Menu::Menu(),
-    _sequentialListMenu(),
-    _linkedListMenu()
+Header::Program::MainProgram::MainProgram()
+    : Program(),
+      _mainMenu(),
+      _sequentialListProgram()
 {
 }
 
-Header::Menu::MainMenu::~MainMenu()
+Header::Program::MainProgram::~MainProgram()
+
 {
-    exitMenu();
 }
 
 #pragma region Actions
-void Header::Menu::MainMenu::openMenu()
+void Header::Program::MainProgram::execute()
 {
+    executeMainMenu();
+}
+
+void Header::Program::MainProgram::close()
+{
+}
+
+void Header::Program::MainProgram::executeMainMenu()
+{
+    //this->menu().openMenu();
+    // TO DO: open and read option from the menu using MainMenu class and enums
     bool exit = false;
     do
     {
@@ -37,7 +43,7 @@ void Header::Menu::MainMenu::openMenu()
         switch (option)
         {
         case '1':
-            this->sequentialListMenu().openMenu();
+            this->sequentialListProgram().execute();
             break;
 
         case '2':
@@ -55,10 +61,5 @@ void Header::Menu::MainMenu::openMenu()
             break;
         }
     } while (!exit);
-}
-
-void Header::Menu::MainMenu::exitMenu()
-{
-    
 }
 #pragma endregion

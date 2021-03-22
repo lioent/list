@@ -8,8 +8,8 @@ namespace Header::Menu
         LinkedListMenu() {}
         ~LinkedListMenu() {}
 
-        void openMenu();
-        void exitMenu();
+        void openMenu() {}
+        void exitMenu() {}
 
     private:
 

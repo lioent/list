@@ -1,8 +1,8 @@
+#pragma once
+
 #include "Manager/FileManager.hpp"
-#include <memory>
 
 using namespace Header::Manager;
-using std::unique_ptr;
 
 namespace Header::Program
 {
@@ -12,12 +12,19 @@ namespace Header::Program
         Program();
         ~Program();
 
+#pragma region GET / SET
+        FileManager *fileManager() const { return this ->_fileManager; }
+#pragma endregion
+
 #pragma region Actions
         virtual void execute() {}
         virtual void close() {}
+
+    protected:
+        void waitForInput();
 #pragma endregion
 
     protected:
-        unique_ptr<FileManager> _fileManager;
+        FileManager *_fileManager;
     };
 }
