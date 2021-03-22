@@ -19,12 +19,7 @@ Header::Util::SequentialList<T>::SequentialList()
 template <class T>
 Header::Util::SequentialList<T>::~SequentialList()
 {
-    for (int index = 0;
-         index < this->size();
-         index++)
-    {
-        delete (this->_list + index);
-    }
+    delete[](this->_list);
 }
 
 #pragma region Actions
