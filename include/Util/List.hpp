@@ -12,17 +12,17 @@ namespace Header::Util
         ~List();
 
 #pragma region GET / SET
-        Node<T> *getFirst()
+        Node<T> *first()
         {
             return this->_first;
         }
-        void setFirst(Node<T> *first) { this->_first = first; }
+        void first(Node<T> *first) { this->_first = first; }
 
-        Node<T> *getLast() { return this->_last; }
-        void setLast(Node<T> *last) { this->_last = last; }
+        Node<T> *last() { return this->_last; }
+        void last(Node<T> *last) { this->_last = last; }
 
-        unsigned int getSize() const { return this->_size; }
-        void setSize(const unsigned int size) { this->_size = size; }
+        unsigned int size() const { return this->_size; }
+        void size(const unsigned int size) { this->_size = size; }
 #pragma endregion
 
 #pragma region Actions
@@ -31,20 +31,14 @@ namespace Header::Util
         void push(T element);
         void append(T element);
 
-        void remove(T element) {}
-        void remove(unsigned int index) {}
-        void remove() { remove(this->getSize() - 1); }
+        void remove();
+        void remove(T element);
+        void remove(unsigned int index);
 
-        Node<T> *findAtIndex(unsigned int index);
+        Node<T> *find(unsigned int index);
         Node<T> *find(T element);
 
         void sort() {}
-#pragma endregion
-
-#pragma region Auxiliary Methods
-    private:
-        void initializeList();
-        void insertFirstElement(T element);
 #pragma endregion
 
     private:

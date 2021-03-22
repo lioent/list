@@ -1,7 +1,7 @@
 #include "Program/MainProgram.hpp"
 
-using std::cout;
 using std::cin;
+using std::cout;
 using std::endl;
 
 Header::Program::MainProgram::MainProgram()
@@ -47,7 +47,7 @@ void Header::Program::MainProgram::executeMainMenu()
             break;
 
         case '2':
-            cout << "Not implemeted yet." << endl;
+            this->linkedListProgram().execute();
             break;
 
         case ' ':

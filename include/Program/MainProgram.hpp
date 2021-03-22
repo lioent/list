@@ -1,6 +1,7 @@
 #include "Program/Program.hpp"
-#include "Program/SequentialListProgram.hpp"
 #include "Menu/MainMenu.hpp"
+#include "Program/SequentialListProgram.hpp"
+#include "Program/LinkedListProgram.hpp"
 
 using namespace Header::Menu;
 
@@ -19,7 +20,7 @@ namespace Header::Program
         }
 
         SequentialListProgram sequentialListProgram() const { return this->_sequentialListProgram; }
-        // LinkedListProgram linkedListProgram() const { return this->_linkedListProgram;}
+        LinkedListProgram linkedListProgram() const { return this->_linkedListProgram;}
 #pragma endregion
 
 #pragma region Actions
@@ -32,6 +33,6 @@ namespace Header::Program
     private:
         MainMenu _mainMenu;
         SequentialListProgram _sequentialListProgram;
-        //LinkedListProgram _linkedListProgram;
+        LinkedListProgram _linkedListProgram;
     };
 }

@@ -1,10 +1,10 @@
-#include "Menu/SequentialListMenu.hpp"
+#include "Menu/LinkedListMenu.hpp"
 
 using std::cin;
 using std::cout;
 using std::endl;
 
-Header::Menu::SequentialListMenu::SequentialListMenu()
+Header::Menu::LinkedListMenu::LinkedListMenu()
     : Header::Menu::Menu::Menu()
 {
     this->_option = MenuOptionEnum::invalid;
@@ -12,12 +12,12 @@ Header::Menu::SequentialListMenu::SequentialListMenu()
     this->_removeOption = RemoveMenuOptionEnum::invalid;
 }
 
-Header::Menu::SequentialListMenu::~SequentialListMenu()
+Header::Menu::LinkedListMenu::~LinkedListMenu()
 {
 }
 
 #pragma region Actions
-void Header::Menu::SequentialListMenu::openMenu()
+void Header::Menu::LinkedListMenu::openMenu()
 {
     cout << "Select what operation you wanna execute:" << endl;
     cout << "1. Insert person" << endl;
@@ -26,12 +26,11 @@ void Header::Menu::SequentialListMenu::openMenu()
     cout << "4. Print people" << endl;
     cout << "X. Exit" << endl;
 }
-
-void Header::Menu::SequentialListMenu::exitMenu()
+void Header::Menu::LinkedListMenu::exitMenu()
 {
 }
 
-void Header::Menu::SequentialListMenu::openInsertMenu()
+void Header::Menu::LinkedListMenu::openInsertMenu()
 {
     cout << "Where do you want to insert data:" << endl;
     cout << "1. In the beginning" << endl;
@@ -39,7 +38,7 @@ void Header::Menu::SequentialListMenu::openInsertMenu()
     cout << "3. At index" << endl;
     cout << "X. Exit" << endl;
 }
-void Header::Menu::SequentialListMenu::openRemoveMenu()
+void Header::Menu::LinkedListMenu::openRemoveMenu()
 {
     cout << "Where do you want to remove the data from:" << endl;
     cout << "1. From the beginning" << endl;
@@ -48,7 +47,7 @@ void Header::Menu::SequentialListMenu::openRemoveMenu()
     cout << "X. Exit" << endl;
 }
 
-Header::Menu::Enum::MenuOptionEnum::MenuOption Header::Menu::SequentialListMenu::readMenuOption()
+Header::Menu::Enum::MenuOptionEnum::MenuOption Header::Menu::LinkedListMenu::readMenuOption()
 {
     char option = ' ';
     fflush(stdin);
@@ -89,7 +88,7 @@ Header::Menu::Enum::MenuOptionEnum::MenuOption Header::Menu::SequentialListMenu:
         break;
     }
 }
-Header::Menu::Enum::InsertMenuOptionEnum::InsertMenuOption Header::Menu::SequentialListMenu::readInsertMenuOption()
+Header::Menu::Enum::InsertMenuOptionEnum::InsertMenuOption Header::Menu::LinkedListMenu::readInsertMenuOption()
 {
     char option = ' ';
     fflush(stdin);
@@ -125,7 +124,7 @@ Header::Menu::Enum::InsertMenuOptionEnum::InsertMenuOption Header::Menu::Sequent
         break;
     }
 }
-Header::Menu::Enum::RemoveMenuOptionEnum::RemoveMenuOption Header::Menu::SequentialListMenu::readRemoveMenuOption()
+Header::Menu::Enum::RemoveMenuOptionEnum::RemoveMenuOption Header::Menu::LinkedListMenu::readRemoveMenuOption()
 {
     char option = ' ';
     fflush(stdin);
@@ -161,4 +160,3 @@ Header::Menu::Enum::RemoveMenuOptionEnum::RemoveMenuOption Header::Menu::Sequent
         break;
     }
 }
-#pragma endregion

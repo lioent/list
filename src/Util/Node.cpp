@@ -27,7 +27,7 @@ Header::Util::Node<T>::~Node()
 template <class T>
 Header::Util::Node<T> &Header::Util::Node<T>::operator++()
 {
-    *this = *this->getNext();
+    *this = *this->next();
     return *this;
 }
 template <class T>

@@ -1,4 +1,7 @@
-#include "Program/SequentialListProgram.hpp"
+#include "Program/LinkedListProgram.hpp"
+#include "Menu/Enum/MenuOptionEnum.hpp"
+#include "Menu/Enum/MenuInsertOptionEnum.hpp"
+#include "Menu/Enum/RemoveMenuOptionEnum.hpp"
 #include <sstream>
 
 using namespace Header::Menu::Enum;
@@ -8,38 +11,38 @@ using std::endl;
 using std::getline;
 using std::stringstream;
 
-Header::Program::SequentialListProgram::SequentialListProgram()
-    : Header::Program::Program::Program()
+Header::Program::LinkedListProgram::LinkedListProgram()
+    : Header::Program::Program()
 {
     this->_list = nullptr;
-    this->_sequentialListMenu = nullptr;
+    this->_linkedListMenu = nullptr;
 }
 
-Header::Program::SequentialListProgram::~SequentialListProgram()
+Header::Program::LinkedListProgram::~LinkedListProgram()
 {
     delete (this->_list);
-    delete (this->_sequentialListMenu);
+    delete (this->_linkedListMenu);
 }
 
 #pragma region Actions
-void Header::Program::SequentialListProgram::execute()
+void Header::Program::LinkedListProgram::execute()
 {
     this->_fileManager = new FileManager("Data/NomeRG10.txt");
-    this->_list = new SequentialList<Person>{};
-    this->_sequentialListMenu = new SequentialListMenu();
+    this->_list = new List<Person>();
+    this->_linkedListMenu = new LinkedListMenu();
 
     executeMainMenu();
 }
 
-void Header::Program::SequentialListProgram::close()
+void Header::Program::LinkedListProgram::close()
 {
     delete (this->_list);
-    delete (this->_sequentialListMenu);
+    delete (this->_linkedListMenu);
 }
 #pragma endregion
 
-#pragma region Auxiliary Methods
-void Header::Program::SequentialListProgram::executeMainMenu()
+#pragma region AuxiliaryMethods
+void Header::Program::LinkedListProgram::executeMainMenu()
 {
     while (this->menu()->option() != MenuOptionEnum::exit)
     {
@@ -78,7 +81,7 @@ void Header::Program::SequentialListProgram::executeMainMenu()
 
     this->menu()->option(MenuOptionEnum::invalid);
 }
-void Header::Program::SequentialListProgram::executeInsertMenu()
+void Header::Program::LinkedListProgram::executeInsertMenu()
 {
     Person person = createPerson();
 
@@ -96,14 +99,14 @@ void Header::Program::SequentialListProgram::executeInsertMenu()
             break;
 
         case InsertMenuOptionEnum::begin:
-            this->list()->insert(person, 0);
+            this->list()->push(person);
             printAllData();
 
             this->menu()->insertOption(InsertMenuOptionEnum::exit);
             break;
 
         case InsertMenuOptionEnum::end:
-            this->list()->insert(person, this->list()->size());
+            this->list()->append(person);
             printAllData();
 
             this->menu()->insertOption(InsertMenuOptionEnum::exit);
@@ -131,7 +134,7 @@ void Header::Program::SequentialListProgram::executeInsertMenu()
 
     this->menu()->insertOption(InsertMenuOptionEnum::invalid);
 }
-void Header::Program::SequentialListProgram::executeRemoveMenu()
+void Header::Program::LinkedListProgram::executeRemoveMenu()
 {
     while (this->menu()->removeOption() != RemoveMenuOptionEnum::exit)
     {
@@ -161,7 +164,7 @@ void Header::Program::SequentialListProgram::executeRemoveMenu()
             fflush(stdin);
             unsigned int index;
             unsigned int maxSize = this->list()->size() != 0 ? this->list()->size() - 1 : 0;
-            cout << "What index do you want to remove the Person from (min: 0, max: " << maxSize << "):";
+            cout << "What index do you want to remove the Person from (min: 0, max: " << maxSize << "):" << endl;
             cin >> index;
             fflush(stdin);
 
@@ -170,6 +173,7 @@ void Header::Program::SequentialListProgram::executeRemoveMenu()
             this->menu()->removeOption(RemoveMenuOptionEnum::exit);
             break;
         }
+
         case RemoveMenuOptionEnum::invalid:
             cout << "Invalid option." << endl;
             break;
@@ -177,9 +181,9 @@ void Header::Program::SequentialListProgram::executeRemoveMenu()
     }
     this->menu()->removeOption(RemoveMenuOptionEnum::invalid);
 }
-void Header::Program::SequentialListProgram::executeSearch()
+void Header::Program::LinkedListProgram::executeSearch()
 {
-    fflush(stdin);
+      fflush(stdin);
     unsigned int index;
     cout << "Enter an index to look into: (min: 0, max: " << this->list()->size() - 1 << "):" << endl;
     cin >> index;
@@ -191,7 +195,7 @@ void Header::Program::SequentialListProgram::executeSearch()
         return;
     }
 
-    Person person = this->list()->findAtIndex(index);
+    Person person = this->list()->find(index)->element();
     // TO DO: make an "isValid" method in "Person" class
     if (person.getName() == "" || person.getRG() == "")
     {
@@ -199,20 +203,22 @@ void Header::Program::SequentialListProgram::executeSearch()
         return;
     }
 
-    printPerson(person);
+     printPerson(person);
 }
 
-void Header::Program::SequentialListProgram::printAllData()
+void Header::Program::LinkedListProgram::printAllData()
 {
-    for (int index = 0;
-         index < this->list()->size();
-         index++)
+    if(this->list()->size() == 0)
+        return;
+
+    for (Node<Person> *iterator = this->list()->first();
+         iterator != this->list()->last()->next();
+         iterator = iterator->next())
     {
-        Person person = this->list(index);
-        printPerson(person);
+        printPerson(iterator->element());
     }
 }
-void Header::Program::SequentialListProgram::printAllDataFromFile()
+void Header::Program::LinkedListProgram::printAllDataFromFile()
 {
     List<string> dataSet = this->_fileManager->readData();
 
@@ -239,7 +245,7 @@ void Header::Program::SequentialListProgram::printAllDataFromFile()
     }
 }
 
-Person Header::Program::SequentialListProgram::createPerson()
+Header::Model::Person Header::Program::LinkedListProgram::createPerson()
 {
     fflush(stdin);
 
@@ -263,7 +269,7 @@ Person Header::Program::SequentialListProgram::createPerson()
 
     return Person(name, rg);
 }
-void Header::Program::SequentialListProgram::printPerson(const Person person)
+void Header::Program::LinkedListProgram::printPerson(const Person person)
 {
     cout << "Name: " << person.getName()
          << " - RG: " << person.getRG()

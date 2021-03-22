@@ -6,25 +6,30 @@
 template <class T>
 Header::Util::List<T>::List(T element)
 {
-    initializeList();
-    insertFirstElement(element);
+    Node<T> *newNode = new Node<T>(element);
+
+    this->_first = newNode;
+    this->_last = newNode;
+    this->_size = 1;
 }
 
 // Initializes an empty list.
 template <class T>
 Header::Util::List<T>::List()
 {
-    initializeList();
+    this->_size = 0;
+    this->_first = nullptr;
+    this->_last = nullptr;
 }
 
 // Deallocates every element in the list.
 template <class T>
 Header::Util::List<T>::~List()
 {
-    Node<T> *current = this->getFirst();
+    Node<T> *current = this->first();
     while (current != nullptr)
     {
-        Node<T> *next = current->getNext();
+        Node<T> *next = current->next();
         delete (current);
         current = next;
     }
@@ -35,12 +40,16 @@ Header::Util::List<T>::~List()
 template <class T>
 void Header::Util::List<T>::insert(T element, unsigned int index)
 {
-    if (index > this->getSize())
+    if (index > this->size())
         return;
 
-    if (this->getSize() == 0)
+    if (this->size() == 0)
     {
-        insertFirstElement(element);
+        Node<T> *newNode = new Node<T>(element);
+
+        this->_first = newNode;
+        this->_last = newNode;
+        this->_size = 1;
         return;
     }
 
@@ -50,112 +59,182 @@ void Header::Util::List<T>::insert(T element, unsigned int index)
         return;
     }
 
-    if (index == this->getSize())
+    if (index == this->size())
     {
         append(element);
         return;
     }
 
-    Node<T> *auxiliar = findAtIndex(index);
+    Node<T> *auxiliar = find(index);
     Node<T> *newNode = new Node<T>(element);
 
-    newNode->setPrevious(auxiliar->getPrevious());
-    newNode->setNext(auxiliar);
-    auxiliar->setPrevious(newNode);
+    newNode->next(auxiliar);
+    newNode->previous(auxiliar->previous());
+    auxiliar->previous()->next(newNode);
+    auxiliar->previous(newNode);
 
     ++this->_size;
 }
-
 // Inserts an element at the beginning of the list.
 template <class T>
 void Header::Util::List<T>::push(T element)
 {
-    if (this->getSize() == 0)
+    if (this->size() == 0)
     {
-        insertFirstElement(element);
+        Node<T> *newNode = new Node<T>(element);
+
+        this->_first = newNode;
+        this->_last = newNode;
+        this->_size = 1;
         return;
     }
 
     Node<T> *newNode = new Node<T>(element);
 
-    newNode->setNext(this->getFirst());
-    this->getFirst()->setPrevious(newNode);
-    this->setFirst(newNode);
+    newNode->next(this->first());
+    this->first()->previous(newNode);
+    this->first(newNode);
 
     ++this->_size;
 }
-
 // Inserts an element at the end of the list.
 template <class T>
 void Header::Util::List<T>::append(T element)
 {
-    if (this->getSize() == 0)
+    if (this->size() == 0)
     {
-        insertFirstElement(element);
+        Node<T> *newNode = new Node<T>(element);
+
+        this->_first = newNode;
+        this->_last = newNode;
+        this->_size = 1;
         return;
     }
 
     Node<T> *newNode = new Node<T>(element);
 
-    newNode->setPrevious(this->getLast());
-    this->getLast()->setNext(newNode);
-    this->setLast(newNode);
+    newNode->previous(this->last());
+    this->last()->next(newNode);
+    this->last(newNode);
 
     ++this->_size;
 }
 
+
+template <class T>
+void Header::Util::List<T>::remove()
+{
+    if(this->size() == 0)
+        return;
+
+    remove(this->last()->element());
+}
+template <class T>
+void Header::Util::List<T>::remove(T element)
+{
+    if(this->size() == 0)
+        return;
+
+    this->_size--;
+    // find element
+    Node<T> *nodeToBeRemoved = find(element);
+
+    if (nodeToBeRemoved->element() == this->first()->element())
+    {
+        this->first(nodeToBeRemoved->next());
+        delete (this->first()->previous());
+        return;
+    }
+    if (nodeToBeRemoved->element() == this->last()->element())
+    {
+        this->last(nodeToBeRemoved->previous());
+        delete (this->last()->next());
+        return;
+    }
+
+    nodeToBeRemoved->previous()->next(nodeToBeRemoved->next());
+    nodeToBeRemoved->next()->previous(nodeToBeRemoved->previous());
+    delete (nodeToBeRemoved);
+
+    return;
+}
+
+template <class T>
+void Header::Util::List<T>::remove(unsigned int index)
+{
+    if (index >= this->size() || this->size() == 0)
+        return;
+
+    if(this->size() == 1)
+    {
+        delete(this->first());
+        this->first(nullptr);
+        this->last(nullptr);
+        this->_size--;
+        return;
+    }
+
+    if (index == 0)
+    {
+        this->first(this->first()->next());
+        delete (this->first()->previous());
+        this->_size--;
+        return;
+    }
+
+    if (index == this->size() - 1)
+    {
+        this->first(this->first()->previous());
+        delete (this->first()->next());
+        this->_size--;
+        return;
+    }
+
+    Node<T> *nodeToBeRemoved = find(index);
+    nodeToBeRemoved->previous()->next(nodeToBeRemoved->next());
+    nodeToBeRemoved->next()->previous(nodeToBeRemoved->previous());
+
+    delete (nodeToBeRemoved);
+
+    this->_size--;
+}
+
 // Finds the element at the given index.
 template <class T>
-Header::Util::Node<T> *Header::Util::List<T>::findAtIndex(unsigned int index)
+Header::Util::Node<T> *Header::Util::List<T>::find(unsigned int index)
 {
-    if (index > this->getSize())
+    if (index >= this->size())
         return nullptr;
 
-    Node<T> *iterator = this->getFirst();
+    if (index == 0)
+        return this->first();
+
+    if (index == this->size() - 1)
+        return this->last();
+
+    Node<T> *iterator = this->first();
     for (unsigned int idx = 0;
-         idx != index;
+         idx < index;
          idx++)
     {
-        iterator = iterator->getNext();
+        iterator = iterator->next();
     }
 
     return iterator;
 }
-
 // Finds the element in the list, if existing.
 template <class T>
 Header::Util::Node<T> *Header::Util::List<T>::find(T element)
 {
-
-    for (Node<T> *iterator = this->getFirst();
-         iterator != this->getLast()->getNext();
-         iterator++)
+    for (Node<T> *iterator = this->first();
+         iterator != this->last()->next();
+         iterator = iterator->next())
     {
-        if (iterator->getElement() == element)
+        if (iterator->element() == element)
             return iterator;
     }
 
     return nullptr;
-}
-#pragma endregion
-
-#pragma region Auxiliary Methods
-template <class T>
-void Header::Util::List<T>::initializeList()
-{
-    this->_size = 0;
-    this->_first = nullptr;
-    this->_last = nullptr;
-}
-
-template <class T>
-void Header::Util::List<T>::insertFirstElement(T element)
-{
-    Node<T> *newNode = new Node<T>(element);
-
-    this->setFirst(newNode);
-    this->setLast(newNode);
-    this->_size = 1;
 }
 #pragma endregion
 
