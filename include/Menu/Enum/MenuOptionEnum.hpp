@@ -9,6 +9,8 @@ namespace Header::Menu::Enum::MenuOptionEnum
         remove = '2',
         search = '3',
         print = '4',
+        save = '5',
+        load = '6',
         exit = 'X'
     };
 }

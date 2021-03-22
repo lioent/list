@@ -36,6 +36,8 @@ namespace Header::Program
         void executeInsertMenu();
         void executeRemoveMenu();
         void executeSearch();
+        void executeSaveFile();
+        void executeLoadFile();
 
         void printAllData();
         void printAllDataFromFile();

@@ -24,6 +24,8 @@ void Header::Menu::LinkedListMenu::openMenu()
     cout << "2. Remove person" << endl;
     cout << "3. Find person" << endl;
     cout << "4. Print people" << endl;
+    cout << "5. Save current data in File" << endl;
+    cout << "6. Load data from File" << endl;
     cout << "X. Exit" << endl;
 }
 void Header::Menu::LinkedListMenu::exitMenu()
@@ -73,6 +75,16 @@ Header::Menu::Enum::MenuOptionEnum::MenuOption Header::Menu::LinkedListMenu::rea
     case MenuOptionEnum::print:
         this->option(MenuOptionEnum::print);
         return MenuOptionEnum::print;
+        break;
+
+    case MenuOptionEnum::save:
+        this->option(MenuOptionEnum::save);
+        return MenuOptionEnum::save;
+        break;
+        
+    case MenuOptionEnum::load:
+        this->option(MenuOptionEnum::load);
+        return MenuOptionEnum::load;
         break;
 
     case ' ':

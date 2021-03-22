@@ -27,7 +27,7 @@ List<string> Header::Manager::FileManager::readData()
         while (this->_inputFileStream.good())
         {
             getline(this->_inputFileStream, line);
-            if(line != "")
+            if (line != "")
                 dataSet.insert(line);
             //cout << line << '\n';
         }
@@ -39,12 +39,17 @@ List<string> Header::Manager::FileManager::readData()
     return dataSet;
 }
 
-void Header::Manager::FileManager::writeData(string data)
+void Header::Manager::FileManager::writeData(List<string> *dataSet)
 {
     this->_outputFileStream.open(this->_fileName);
     if (this->_outputFileStream.is_open())
     {
-        this->_outputFileStream << data << '\n';
+        for (Node<string> *data = dataSet->first();
+             data != nullptr;
+             data = data->next())
+        {
+            this->_outputFileStream << data->element() << '\n';
+        }
         this->_outputFileStream.close();
     }
     else
