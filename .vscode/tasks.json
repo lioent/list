@@ -7,9 +7,12 @@
 			"command": "E:\\mingw32\\bin\\g++.exe",
 			"args": [
 				"-g", "${workspaceFolder}\\_main.cpp",
-				"-I", "${workspaceFolder}\\src",
-				"-I", "${workspaceFolder}\\src\\header\\util",
-				"-I", "${workspaceFolder}\\includes",
+				"${workspaceFolder}\\src\\Manager\\*.cpp",
+				"${workspaceFolder}\\src\\Menu\\*.cpp",
+				"${workspaceFolder}\\src\\Model\\*.cpp",
+				"${workspaceFolder}\\src\\Program\\*.cpp",
+				"${workspaceFolder}\\src\\Util\\*.cpp",
+				"-I", "${workspaceFolder}\\include",
 				"-o", "${workspaceFolder}\\_main.exe"
 			],
 			"options": {

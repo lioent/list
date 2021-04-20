@@ -1,10 +1,11 @@
-#include "Menu.hpp"
-using namespace header_util;
+#include "Program/MainProgram.hpp"
+
+using namespace Header::Program;
 
 int main()
 {
-    Menu menu = Menu();
+    MainProgram mainProgram = MainProgram();
+    mainProgram.execute();
 
     return 0;
 }
-
