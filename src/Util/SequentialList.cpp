@@ -32,15 +32,22 @@ void Header::Util::SequentialList<T>::insert(T &element, unsigned int index)
     this->_size++;
     T *newList = new T[this->size()];
 
+    int c = 1;
+    int m = 2;
+
     // Copying values after index
     for (int idx = this->size() - 1;
          idx > index;
          idx--)
     {
         newList[idx] = this->_list[idx - 1];
+        c++;
+        m++;
     }
 
     newList[index] = element;
+
+    m++;
 
     // Copying values before index
     for (int idx = 0;
@@ -48,10 +55,16 @@ void Header::Util::SequentialList<T>::insert(T &element, unsigned int index)
          idx++)
     {
         newList[idx] = this->_list[idx];
+        c++;
+        m++;
     }
 
     delete (this->_list);
     this->_list = newList;
+
+    m++;
+
+    std::cout << "insert at index: " << c << " conditions and " << m << " assignments" << std::endl;
 }
 
 template <class T>
@@ -72,26 +85,32 @@ void Header::Util::SequentialList<T>::remove(T element)
 template <class T>
 void Header::Util::SequentialList<T>::remove(unsigned int index)
 {
-    if(index > this->size() - 1 || this->size() == 0)
+    if (index > this->size() - 1 || this->size() == 0)
         return;
 
     if (this->size() == 1)
     {
-        delete[] (this->_list);
+        delete[](this->_list);
         this->size(0);
         this->_list = new T[this->size()];
         return;
     }
 
-    this->_size--;
-    T* newList = new T[this->size()];
+    int c = 2;
 
-     // Copying values after index
+    this->_size--;
+    T *newList = new T[this->size()];
+
+    int m = 2;
+
+    // Copying values after index
     for (int idx = this->size() - 1;
          idx >= index && idx < this->size();
          idx--)
     {
         newList[idx] = this->_list[idx + 1];
+        c++;
+        m++;
     }
 
     // Copying values before index
@@ -100,16 +119,21 @@ void Header::Util::SequentialList<T>::remove(unsigned int index)
          idx++)
     {
         newList[idx] = this->_list[idx];
+        c++;
+        m++;
     }
 
     delete (this->_list);
-    this->_list = newList;    
+    this->_list = newList;
+    m++;
+
+    std::cout << "remove at index: " << c << " conditions and " << m << " assignments" << std::endl;
 }
 
 template <class T>
 T Header::Util::SequentialList<T>::findAtIndex(unsigned int index)
 {
-    if(index > this->size() - 1)
+    if (index > this->size() - 1)
         return T();
 
     return this->list(index);
@@ -118,6 +142,15 @@ T Header::Util::SequentialList<T>::findAtIndex(unsigned int index)
 template <class T>
 T Header::Util::SequentialList<T>::find(T element)
 {
+    for (unsigned index = 0;
+         index < this->size();
+         index++)
+    {
+        if(element == this->list(index))
+            return this->list(index);
+    }
+
+    return T();
 }
 #pragma endregion
 

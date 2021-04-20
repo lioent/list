@@ -1,5 +1,6 @@
 #include "Program/SequentialListProgram.hpp"
 #include <sstream>
+#include <chrono>
 
 using namespace Header::Menu::Enum;
 using std::cin;
@@ -14,7 +15,6 @@ Header::Program::SequentialListProgram::SequentialListProgram()
     this->_list = nullptr;
     this->_sequentialListMenu = nullptr;
 }
-
 Header::Program::SequentialListProgram::~SequentialListProgram()
 {
     delete (this->_list);
@@ -30,7 +30,6 @@ void Header::Program::SequentialListProgram::execute()
 
     executeMainMenu();
 }
-
 void Header::Program::SequentialListProgram::close()
 {
     delete (this->_list);
@@ -103,31 +102,49 @@ void Header::Program::SequentialListProgram::executeInsertMenu()
             break;
 
         case InsertMenuOptionEnum::begin:
+        {
+            std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
             this->list()->insert(person, 0);
-            printAllData();
+            std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+            std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "[µs]" << std::endl;
+            std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count() << "[ns]" << std::endl;
 
+            printAllData();
             this->menu()->insertOption(InsertMenuOptionEnum::exit);
             break;
+        }
 
         case InsertMenuOptionEnum::end:
+        {
+            std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
             this->list()->insert(person, this->list()->size());
-            printAllData();
+            std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+            std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "[µs]" << std::endl;
+            std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count() << "[ns]" << std::endl;
 
+            printAllData();
             this->menu()->insertOption(InsertMenuOptionEnum::exit);
             break;
+        }
 
         case InsertMenuOptionEnum::index:
+        {
             fflush(stdin);
             unsigned int index;
             cout << "What index do you want to insert the Person in (min: 0, max: " << this->list()->size() << "):" << endl;
             cin >> index;
             fflush(stdin);
 
+            std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
             this->list()->insert(person, index);
-            printAllData();
+            std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+            std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "[µs]" << std::endl;
+            std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count() << "[ns]" << std::endl;
 
+            printAllData();
             this->menu()->insertOption(InsertMenuOptionEnum::exit);
             break;
+        }
 
         case InsertMenuOptionEnum::invalid:
             cout << "Invalid option." << endl;
@@ -150,18 +167,30 @@ void Header::Program::SequentialListProgram::executeRemoveMenu()
             break;
 
         case RemoveMenuOptionEnum::begin:
+        {
+            std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
             this->list()->remove(0);
+            std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+            std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "[µs]" << std::endl;
+            std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count() << "[ns]" << std::endl;
+
             printAllData();
             this->menu()->removeOption(RemoveMenuOptionEnum::exit);
-
             break;
+        }
 
         case RemoveMenuOptionEnum::end:
+        {
+            std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
             this->list()->remove();
+            std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+            std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "[µs]" << std::endl;
+            std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count() << "[ns]" << std::endl;
+
             printAllData();
             this->menu()->removeOption(RemoveMenuOptionEnum::exit);
-
             break;
+        }
 
         case RemoveMenuOptionEnum::index:
         {
@@ -172,7 +201,12 @@ void Header::Program::SequentialListProgram::executeRemoveMenu()
             cin >> index;
             fflush(stdin);
 
+            std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
             this->list()->remove(index);
+            std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+            std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "[µs]" << std::endl;
+            std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count() << "[ns]" << std::endl;
+
             printAllData();
             this->menu()->removeOption(RemoveMenuOptionEnum::exit);
             break;
@@ -186,19 +220,44 @@ void Header::Program::SequentialListProgram::executeRemoveMenu()
 }
 void Header::Program::SequentialListProgram::executeSearch()
 {
+    // fflush(stdin);
+    // unsigned int index;
+    // cout << "Enter an index to look into: (min: 0, max: " << this->list()->size() - 1 << "):" << endl;
+    // cin >> index;
+    // fflush(stdin);
+
+    // std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
+    // if (index > this->list()->size() - 1)
+    // {
+    //     cout << "Invalid index" << endl;
+    //     return;
+    // }
+
+    // Person person = this->list()->findAtIndex(index);
+    // // TO DO: make an "isValid" method in "Person" class
+    // if (person.getName() == "" || person.getRG() == "")
+    // {
+    //     cout << "Not found." << endl;
+    //     return;
+    // }
+
+    // int c = 2;
+    // int m = 1;
+    // std::cout << "remove at index: " << c << " conditions and " << m << " assignments" << std::endl;
+
+    // printPerson(person);
+
+    // std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+    // std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "[µs]" << std::endl;
+    // std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count() << "[ns]" << std::endl;
     fflush(stdin);
-    unsigned int index;
-    cout << "Enter an index to look into: (min: 0, max: " << this->list()->size() - 1 << "):" << endl;
-    cin >> index;
+    string rg;
+    cout << "Enter a RG to look into:" << endl;
+    cin >> rg;
     fflush(stdin);
 
-    if (index > this->list()->size() - 1)
-    {
-        cout << "Invalid index" << endl;
-        return;
-    }
-
-    Person person = this->list()->findAtIndex(index);
+    std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
+    Person person = this->list()->find(Person("", rg));
     // TO DO: make an "isValid" method in "Person" class
     if (person.getName() == "" || person.getRG() == "")
     {
@@ -206,7 +265,15 @@ void Header::Program::SequentialListProgram::executeSearch()
         return;
     }
 
+    int c = 2;
+    int m = 1;
+    std::cout << "search by rg: " << c << " conditions and " << m << " assignments" << std::endl;
+
     printPerson(person);
+
+    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+    std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "[µs]" << std::endl;
+    std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count() << "[ns]" << std::endl;
 }
 void Header::Program::SequentialListProgram::executeSaveFile()
 {

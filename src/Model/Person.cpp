@@ -14,21 +14,15 @@ Header::Model::Person::~Person()
 #pragma region Operator Overload
 bool Header::Model::Person::operator==(const Person &comparer)
 {
-    return (this->getName() == comparer.getName() && this->getRG() == comparer.getRG());
+    return ((this->getName() == "" || comparer.getName() == "" || this->getName() == comparer.getName()) 
+    && (this->getRG() == "" || comparer.getRG() == "" || this->getRG() == comparer.getRG()));
 }
 
 void Header::Model::Person::operator=(const Person &person)
 {
-    try
-    {
-        string name = person.getName();
-        string rg = person.getRG();
-        this->setName(name);
-        this->setRG(rg);
-    }
-    catch (const std::exception &e)
-    {
-        std::cerr << e.what() << '\n';
-    }
+    string name = person.getName();
+    string rg = person.getRG();
+    this->setName(name);
+    this->setRG(rg);
 }
 #pragma endregion
